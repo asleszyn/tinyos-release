@@ -218,6 +218,10 @@ Tossim::Tossim(nesc_app_t* n) {
 
 Tossim::~Tossim() {
   sim_end();
+  for (int i = 0; i < TOSSIM_MAX_NODES + 1; ++i)
+      if (motes[i])
+          delete motes[i];
+  free(motes);
 }
 
 void Tossim::init() {

@@ -78,6 +78,10 @@ void sim_init() __attribute__ ((C, spontaneous)) {
 }
 
 void sim_end() __attribute__ ((C, spontaneous)) {
+  int i;
+  for (i = 0; i < TOSSIM_MAX_NODES; ++i)
+      sim_mote_turn_off(i);
+
   sim_queue_init();
 }
 
