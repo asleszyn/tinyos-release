@@ -254,7 +254,8 @@ implementation {
       else
 	prr = 0.0;
     }
-    return prr;
+//    return prr;
+    return TRUE;
   }
 
   bool checkReceive(receive_message_t* msg) {
@@ -393,21 +394,21 @@ implementation {
       dbg("CpmModelC", "Lost packet from %i due to %i being off\n", source, sim_node());
       rcv->lost = 1;
     }
-    else if (!shouldReceive(power - noiseStr)) {
-      dbg("CpmModelC,SNRLoss", "Lost packet from %i to %i due to SNR being too low (%i)\n", source, sim_node(), (int)(power - noiseStr));
-      rcv->lost = 1;
-    }
-    else if (receiving) {
-      dbg("CpmModelC,SNRLoss", "Lost packet from %i due to %i being mid-reception\n", source, sim_node());
-      rcv->lost = 1;
-    }
-    else if (transmitting && (rcv->start < transmissionEndTime) && (transmissionEndTime <= rcv->end)) {
-      dbg("CpmModelC,SNRLoss", "Lost packet from %i due to %i being mid-transmission, transmissionEndTime %llu\n", source, sim_node(), transmissionEndTime);
-      rcv->lost = 1;
-    }
-    else {
-      receiving = 1;
-    }
+//    else if (!shouldReceive(power - noiseStr)) {
+//      dbg("CpmModelC,SNRLoss", "Lost packet from %i to %i due to SNR being too low (%i)\n", source, sim_node(), (int)(power - noiseStr));
+//      rcv->lost = 1;
+//    }
+//    else if (receiving) {
+//      dbg("CpmModelC,SNRLoss", "Lost packet from %i due to %i being mid-reception\n", source, sim_node());
+//      rcv->lost = 1;
+//    }
+//    else if (transmitting && (rcv->start < transmissionEndTime) && (transmissionEndTime <= rcv->end)) {
+//      dbg("CpmModelC,SNRLoss", "Lost packet from %i due to %i being mid-transmission, transmissionEndTime %llu\n", source, sim_node(), transmissionEndTime);
+//      rcv->lost = 1;
+//    }
+//    else {
+//      receiving = 1;
+//    }
 
     list = outstandingReceptionHead;
     while (list != NULL) {
@@ -434,7 +435,7 @@ implementation {
   }
 
   command void Model.putOnAirTo(int dest, message_t* msg, bool ack, sim_time_t endTime, double power, double reversePower) {
-    receive_message_t* list;
+//    receive_message_t* list;
     gain_entry_t* neighborEntry = sim_gain_first(sim_node());
     requestAck = ack;
     outgoing = msg;
@@ -447,12 +448,12 @@ implementation {
       neighborEntry = sim_gain_next(neighborEntry);
     }
 
-    list = outstandingReceptionHead;
-    while (list != NULL) {    
-      list->lost = 1;
-      dbg("CpmModelC,SNRLoss", "Lost packet from %i because %i has outstanding reception, startTime %llu endTime %llu\n", list->source, sim_node(), list->start, list->end);
-      list = list->next;
-    }
+//    list = outstandingReceptionHead;
+//    while (list != NULL) {
+//      list->lost = 1;
+//      dbg("CpmModelC,SNRLoss", "Lost packet from %i because %i has outstanding reception, startTime %llu endTime %llu\n", list->source, sim_node(), list->start, list->end);
+//      list = list->next;
+//    }
   }
     
 
