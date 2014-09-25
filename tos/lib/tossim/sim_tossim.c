@@ -55,6 +55,7 @@ static int sim_seed;
 static int __nesc_nido_resolve(int mote, char* varname, uintptr_t* addr, size_t* size);
 
 void sim_init() __attribute__ ((C, spontaneous)) {
+  sim_set_time(0);
   sim_queue_init();
   sim_log_init();
   sim_log_commit_change();
